@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShieldCheck, Lock } from "lucide-react";
 
-export default function LoginPage() {
+import { Suspense } from "react";
+
+function LoginContent() {
   const searchParams = useSearchParams();
   const from = searchParams.get("from") || "/admin";
   const [state, formAction, isPending] = useActionState(loginAction, null);
@@ -67,3 +69,12 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center p-6 paper-texture"><p className="font-sans text-muted-foreground animate-pulse">Initializing Security...</p></div>}>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
