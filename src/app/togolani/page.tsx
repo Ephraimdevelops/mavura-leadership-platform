@@ -32,7 +32,7 @@ export default function AboutPage() {
             <section className="relative min-h-[50vh] flex items-center pt-40 pb-20 overflow-hidden bg-background">
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
                 <div className="max-w-[1200px] mx-auto px-6 relative z-10 w-full">
-                    <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-16 items-center">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="space-y-8">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ export default function AboutPage() {
                             >
                                 <div className="space-y-2">
                                     <span className="text-[10px] uppercase font-bold text-accent tracking-[0.2em] block">Portrait of Service</span>
-                                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-medium text-slate-950 font-cormorant leading-tight whitespace-nowrap">
+                                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-medium text-slate-950 font-cormorant leading-tight">
                                         H.E. Togolani Edriss <span className="text-accent italic">Mavura</span>
                                     </h1>
                                 </div>
@@ -67,7 +67,7 @@ export default function AboutPage() {
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 1 }}
-                            className="relative aspect-[4/5] max-w-sm ml-auto overflow-hidden shadow-2xl"
+                            className="relative aspect-[4/5] w-full overflow-hidden shadow-2xl"
                         >
                             <NextImage 
                                 src="/images/tm-hero-about.png" 
