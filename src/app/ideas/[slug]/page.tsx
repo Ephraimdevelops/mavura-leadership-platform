@@ -107,37 +107,37 @@ export default function IdeaDetailPage() {
                 {/* TWO-COLUMN CONTENT AREA */}
                 <div className="max-w-[1000px] mx-auto px-6 flex flex-col md:flex-row gap-12">
                     {/* LEFT COLUMN: SOCIAL SHARE */}
-                    <aside className="md:w-16 flex-shrink-0">
-                        <div className="sticky top-32 flex flex-col gap-3">
-                            <button className="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity">
+                    <aside className="md:w-16 flex-shrink-0 order-2 md:order-1 mt-8 md:mt-0">
+                        <div className="md:sticky md:top-32 flex flex-row md:flex-col gap-4 justify-center md:justify-start">
+                            <button className="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm">
                                 <Facebook className="w-5 h-5" fill="currentColor" stroke="none" />
                             </button>
-                            <button className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:opacity-90 transition-opacity">
+                            <button className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm">
                                 <Twitter className="w-4 h-4" fill="currentColor" stroke="none" />
                             </button>
-                            <button className="w-10 h-10 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:opacity-90 transition-opacity">
+                            <button className="w-10 h-10 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm">
                                 <Linkedin className="w-5 h-5" fill="currentColor" stroke="none" />
                             </button>
-                            <button className="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition-colors">
+                            <button className="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition-colors shadow-sm hidden sm:flex">
                                 <Share2 className="w-4 h-4" />
                             </button>
-                            <button className="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition-colors">
+                            <button className="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition-colors shadow-sm hidden sm:flex">
                                 <Mail className="w-4 h-4" />
                             </button>
                         </div>
                     </aside>
 
                     {/* MAIN CONTENT */}
-                    <div className="flex-grow max-w-[700px]">
+                    <div className="flex-grow max-w-[700px] order-1 md:order-2">
                         {/* AUTHOR BLOCK */}
-                        <div className="flex items-center gap-4 mb-10 pb-8 border-b border-slate-100">
-                            <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-200">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10 pb-8 border-b border-slate-100">
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden bg-slate-200 shrink-0">
                                 <img src="/images/tm-hero-nobg.png" alt="Togolani Mavura" className="w-full h-full object-cover object-top" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop'; }} />
                             </div>
                             <div>
                                 <div className="text-sm text-slate-500 mb-1">By <span className="text-slate-900 font-bold underline decoration-accent underline-offset-4">Togolani Mavura</span></div>
-                                <div className="text-sm font-semibold text-slate-700">Ambassador Extra Ordinary and Plenipotentiary</div>
-                                <div className="text-xs text-slate-500">United Republic of Tanzania</div>
+                                <div className="text-sm font-semibold text-slate-700 leading-tight mb-1">Ambassador Extra Ordinary and Plenipotentiary</div>
+                                <div className="text-xs text-slate-500 uppercase tracking-widest font-bold">United Republic of Tanzania</div>
                             </div>
                         </div>
 

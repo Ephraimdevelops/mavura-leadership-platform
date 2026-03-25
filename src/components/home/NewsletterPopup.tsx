@@ -64,12 +64,12 @@ export function NewsletterPopup() {
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-slate-950/80 backdrop-blur-md">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-md bg-slate-950/60 transition-all">
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.95, y: 30 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 30 }}
-                        className="relative w-full max-w-4xl bg-white overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] border border-white/10 flex flex-col md:flex-row min-h-[500px]"
+                        className="relative w-full max-w-4xl md:max-w-[70vw] lg:max-w-[60vw] max-h-[85vh] md:max-h-[60vh] bg-white overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] border border-white/10 flex flex-col md:flex-row rounded-sm"
                     >
                         {/* 1. CINEMATIC IMAGE PANEL */}
                         <div className="relative w-full md:w-1/2 overflow-hidden bg-slate-900 group">
@@ -92,23 +92,23 @@ export function NewsletterPopup() {
                         </div>
 
                         {/* 2. FORM PANEL */}
-                        <div className="relative w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center bg-white">
+                        <div className="relative w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-white overflow-y-auto">
                             <button 
                                 onClick={closePopup}
-                                className="absolute top-6 right-6 text-slate-400 hover:text-accent transition-colors p-2"
+                                className="absolute top-4 right-4 text-slate-400 hover:text-accent transition-colors p-2 z-50 bg-white/50 backdrop-blur-sm rounded-full"
                             >
                                 <X className="w-6 h-6" />
                             </button>
 
-                            <div className="space-y-8">
-                                <div className="space-y-4">
-                                    <div className="w-12 h-12 bg-accent/10 flex items-center justify-center text-accent">
-                                        <Bell className="w-6 h-6" />
+                            <div className="space-y-6">
+                                <div className="space-y-3">
+                                    <div className="w-10 h-10 bg-accent/10 flex items-center justify-center text-accent rounded-sm">
+                                        <Bell className="w-5 h-5" />
                                     </div>
-                                    <h4 className="text-3xl md:text-4xl font-cormorant font-medium text-slate-950 leading-tight">
+                                    <h4 className="text-2xl md:text-3xl font-cormorant font-medium text-slate-950 leading-tight">
                                         Diplomatic Insights, <br /> Direct to Your Inbox.
                                     </h4>
-                                    <p className="text-sm text-muted-foreground font-sans leading-relaxed max-w-sm">
+                                    <p className="text-xs md:text-sm text-muted-foreground font-sans leading-relaxed max-w-sm">
                                         Join over 5,000 global leaders receiving Ambassador Mavura's 
                                         weekly reflections on leadership, statecraft, and Africa's trajectory.
                                     </p>

@@ -88,14 +88,14 @@ export function Hero({ settings }: { settings?: any }) {
                             {/* Removed as per instruction */}
 
                             {/* Portrait */}
-                            <div className="relative z-10 w-full h-full overflow-hidden">
+                            <div className="relative z-10 w-full h-[50vh] lg:h-full overflow-hidden flex items-end justify-center">
                                 <img
-                                    src="/images/tm-portrait-flag.png"
+                                    src="/images/tm-hero-home-alt.png"
                                     alt="Ambassador Togolani Edriss Mavura"
-                                    className="w-full h-full object-cover object-top"
+                                    className="w-full h-full object-contain object-bottom lg:object-cover lg:object-top"
                                 />
                                 {/* Bottom Fade into Background */}
-                                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent z-20" />
+                                <div className="absolute inset-x-0 bottom-0 h-32 lg:h-40 bg-gradient-to-t from-background via-background/60 to-transparent z-20 pointer-events-none" />
                             </div>
 
                             {/* Decorative element - Karama Watermark */}

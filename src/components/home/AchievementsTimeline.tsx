@@ -65,7 +65,7 @@ export function AchievementsTimeline({ data }: { data?: any[] }) {
 
                 <div className="space-y-0 relative text-left">
                     {/* Vertical Line */}
-                    <div className="absolute left-[7px] md:left-1/2 top-4 bottom-4 w-px bg-white/5 -translate-x-1/2 hidden md:block" />
+                    <div className="absolute left-[7px] md:left-1/2 top-4 bottom-4 w-px bg-white/10 -translate-x-1/2 block" />
 
                     {list.map((m, i) => (
                         <motion.div 
@@ -73,14 +73,13 @@ export function AchievementsTimeline({ data }: { data?: any[] }) {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: i * 0.1 }}
-                            className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 relative ${i % 2 === 0 ? 'md:flex-row-reverse' : ''} mb-24 last:mb-0`}
+                            className={`flex flex-col md:flex-row items-start md:items-center pl-10 md:pl-0 gap-4 md:gap-0 relative ${i % 2 === 0 ? 'md:flex-row-reverse' : ''} mb-24 last:mb-0`}
                         >
                             {/* Content Column */}
                             <div className="w-full md:w-[45%] space-y-4">
                                 <div className={`flex flex-col ${i % 2 === 0 ? 'md:items-start' : 'md:items-end'} gap-2`}>
                                     <span className="text-xs font-bold text-accent tracking-widest uppercase">{m.year}</span>
-                                    <h3 className={`text-2xl md:text-4xl font-cormorant font-medium text-white leading-tight ${i % 2 === 0 ? 'md:text-left' : 'md:text-right font-serif'}`}>
+                                    <h3 className={`text-2xl md:text-3xl lg:text-4xl font-cormorant font-medium text-white leading-tight ${i % 2 === 0 ? 'md:text-left' : 'md:text-right font-serif'}`}>
                                         {m.role}
                                     </h3>
                                     <p className={`text-[10px] font-bold text-white/40 uppercase tracking-widest ${i % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
@@ -93,7 +92,7 @@ export function AchievementsTimeline({ data }: { data?: any[] }) {
                             </div>
 
                             {/* Center Dot */}
-                            <div className="absolute left-[7px] md:left-1/2 top-1.5 w-3 h-3 rounded-full bg-accent border-[3px] border-[#0A1B33] z-20 -translate-x-1/2 shadow-[0_0_15px_rgba(201,171,111,0.5)]" />
+                            <div className="absolute left-[7px] md:left-1/2 top-1 md:top-1.5 w-3 h-3 rounded-full bg-accent border-[3px] border-[#0A1B33] z-20 -translate-x-1/2 shadow-[0_0_15px_rgba(201,171,111,0.5)]" />
 
                             {/* Empty Space Column for balance */}
                             <div className="w-full md:w-[45%]" />
