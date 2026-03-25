@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, ArrowRight } from "lucide-react";
+import { X, Mail, ArrowRight, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -15,18 +15,21 @@ export function NewsletterPopup() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        const hasSeenPopup = localStorage.getItem("mavura_newsletter_popup");
-        if (!hasSeenPopup) {
+        const lastSeen = localStorage.getItem("mavura_newsletter_last_seen");
+        const now = Date.now();
+        const twoDays = 2 * 24 * 60 * 60 * 1000;
+
+        if (!lastSeen || (now - parseInt(lastSeen)) > twoDays) {
             const timer = setTimeout(() => {
                 setIsOpen(true);
-            }, 5000); // Show after 5 seconds
+            }, 15000); // 15 seconds delay
             return () => clearTimeout(timer);
         }
     }, []);
 
     const closePopup = () => {
         setIsOpen(false);
-        localStorage.setItem("mavura_newsletter_popup", "true");
+        localStorage.setItem("mavura_newsletter_last_seen", Date.now().toString());
     };
 
     const subscribeMutation = useMutation(api.newsletter.subscribe);
@@ -47,6 +50,7 @@ export function NewsletterPopup() {
             });
             if (result.success) {
                 toast.success(result.message);
+                localStorage.setItem("mavura_newsletter_last_seen", (Date.now() + 365 * 24 * 60 * 60 * 1000).toString()); // Don't show again for a year after success
                 setTimeout(closePopup, 2000);
             }
         } catch (error) {
@@ -60,70 +64,92 @@ export function NewsletterPopup() {
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-primary/40 backdrop-blur-sm">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-slate-950/80 backdrop-blur-md">
                     <motion.div 
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        initial={{ opacity: 0, scale: 0.95, y: 30 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-2xl bg-white overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-[#0A1B33]/10"
+                        exit={{ opacity: 0, scale: 0.95, y: 30 }}
+                        className="relative w-full max-w-4xl bg-white overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] border border-white/10 flex flex-col md:flex-row min-h-[500px]"
                     >
-                        <button 
-                            onClick={closePopup}
-                            className="absolute top-6 right-6 text-[#0A1B33]/40 hover:text-accent z-20 transition-colors"
-                        >
-                            <X className="w-6 h-6" />
-                        </button>
-
-                        <div className="flex flex-col md:grid md:grid-cols-[1fr_1.2fr]">
-                            <div className="relative aspect-[4/5] md:aspect-auto bg-[#0A1B33] overflow-hidden">
-                                <div className="absolute inset-0 opacity-20 pointer-events-none">
-                                    <div className="absolute top-[-20%] right-[-20%] w-[100%] h-[100%] bg-accent/20 rounded-full blur-[80px]" />
-                                </div>
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center text-white space-y-6">
-                                    <Mail className="w-10 h-10 text-accent" />
-                                    <h3 className="text-3xl font-sans font-bold uppercase tracking-tight">The Mavura Letter</h3>
-                                    <div className="h-px w-12 bg-accent/40" />
-                                    <p className="text-xs uppercase  font-bold text-accent">Exclusive Insights</p>
-                                </div>
+                        {/* 1. CINEMATIC IMAGE PANEL */}
+                        <div className="relative w-full md:w-1/2 overflow-hidden bg-slate-900 group">
+                            <img 
+                                src="/images/tm-portrait-flag.png" 
+                                alt="Ambassador Togolani Mavura" 
+                                className="w-full h-full object-cover grayscale-[20%] group-hover:scale-105 transition-transform duration-1000"
+                            />
+                            {/* Cinematic Gradient Overlays */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-80" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/10" />
+                            
+                            {/* Branding on Image */}
+                            <div className="absolute bottom-10 left-10 space-y-2 z-10">
+                                <span className="text-[10px] uppercase font-bold text-accent tracking-[0.3em] block">Official Archive</span>
+                                <h3 className="text-3xl font-cormorant italic text-white leading-tight">
+                                    The <span className="text-accent">Mavura</span> Letter
+                                </h3>
                             </div>
+                        </div>
 
-                            <div className="p-10 md:p-16 space-y-8 flex flex-col justify-center bg-white">
+                        {/* 2. FORM PANEL */}
+                        <div className="relative w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center bg-white">
+                            <button 
+                                onClick={closePopup}
+                                className="absolute top-6 right-6 text-slate-400 hover:text-accent transition-colors p-2"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
+
+                            <div className="space-y-8">
                                 <div className="space-y-4">
-                                    <h4 className="text-2xl font-primary leading-tight text-primary">Strategic Perspectives. Delivered Weekly.</h4>
-                                    <p className="text-sm text-muted-foreground font-sans leading-relaxed">
-                                        Join a vetted network of global leaders receiving Ambassador Mavura&apos;s 
-                                        private reflections on diplomacy and leadership architecture.
+                                    <div className="w-12 h-12 bg-accent/10 flex items-center justify-center text-accent">
+                                        <Bell className="w-6 h-6" />
+                                    </div>
+                                    <h4 className="text-3xl md:text-4xl font-cormorant font-medium text-slate-950 leading-tight">
+                                        Diplomatic Insights, <br /> Direct to Your Inbox.
+                                    </h4>
+                                    <p className="text-sm text-muted-foreground font-sans leading-relaxed max-w-sm">
+                                        Join over 5,000 global leaders receiving Ambassador Mavura's 
+                                        weekly reflections on leadership, statecraft, and Africa's trajectory.
                                     </p>
                                 </div>
 
-                                <form onSubmit={handleSubscribe} className="space-y-4">
-                                    <input 
-                                        type="name" 
-                                        placeholder="Full Name (Optional)" 
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        className="w-full h-12 bg-secondary/5 border border-border px-4 text-sm focus:outline-none focus:border-accent transition-colors font-sans"
-                                    />
-                                    <input 
-                                        type="email" 
-                                        placeholder="Email Address" 
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full h-12 bg-secondary/5 border border-border px-4 text-sm focus:outline-none focus:border-accent transition-colors font-sans"
-                                        required
-                                    />
+                                <form onSubmit={handleSubscribe} className="space-y-5">
+                                    <div className="space-y-2">
+                                        <label className="text-[9px] uppercase font-bold text-accent tracking-widest">Full Name</label>
+                                        <input 
+                                            type="text" 
+                                            placeholder="Ex. John Doe" 
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            className="w-full h-12 border-b border-slate-200 focus:border-accent outline-none font-sans text-sm transition-colors bg-transparent"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[9px] uppercase font-bold text-accent tracking-widest">Email Address</label>
+                                        <input 
+                                            type="email" 
+                                            placeholder="official@institution.com" 
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="w-full h-12 border-b border-slate-200 focus:border-accent outline-none font-sans text-sm transition-colors bg-transparent"
+                                            required
+                                        />
+                                    </div>
+                                    
                                     <Button 
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-full h-12 bg-[#0A1B33] text-white hover:bg-[#0A1B33]/90 font-bold   uppercase gap-3"
+                                        className="w-full h-14 bg-slate-950 text-white hover:bg-accent transition-all duration-500 font-bold uppercase tracking-widest gap-4 rounded-none mt-4 shadow-xl"
                                     >
-                                        {isSubmitting ? "Suscribing..." : "Secure Subscription"} <ArrowRight className="w-3 h-3" />
+                                        {isSubmitting ? "Processing..." : "Secure Access"} <ArrowRight className="w-4 h-4 text-accent" />
                                     </Button>
                                 </form>
-                                
-                                <p className=" text-center text-muted-foreground uppercase  font-bold">
-                                    No Spam. Only Signal.
-                                </p>
+
+                                <div className="flex items-center gap-4 pt-4 opacity-50">
+                                    <ShieldCheck className="w-4 h-4" />
+                                    <p className="text-[9px] uppercase font-bold tracking-widest">Privacy Protected • One Click Unsubscribe</p>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
@@ -132,3 +158,13 @@ export function NewsletterPopup() {
         </AnimatePresence>
     );
 }
+
+function ShieldCheck({ className }: { className?: string }) {
+    return (
+        <svg  className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+            <path d="m9 12 2 2 4-4"/>
+        </svg>
+    )
+}
+

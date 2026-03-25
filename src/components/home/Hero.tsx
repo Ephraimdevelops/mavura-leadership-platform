@@ -90,12 +90,12 @@ export function Hero({ settings }: { settings?: any }) {
                             {/* Portrait */}
                             <div className="relative z-10 w-full h-full overflow-hidden">
                                 <img
-                                    src="/images/home-hero-new.png"
+                                    src="/images/tm-portrait-flag.png"
                                     alt="Ambassador Togolani Edriss Mavura"
                                     className="w-full h-full object-cover object-top"
                                 />
                                 {/* Bottom Fade into Background */}
-                                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent z-20" />
                             </div>
 
                             {/* Decorative element - Karama Watermark */}

@@ -67,17 +67,19 @@ export default function AboutPage() {
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 1 }}
-                            className="relative aspect-[4/5] w-full overflow-hidden shadow-2xl"
+                            className="relative flex justify-center lg:justify-end"
                         >
-                            <NextImage 
-                                src="/images/tm-hero-about.png" 
-                                alt="Ambassador Togolani Mavura" 
-                                fill
-                                className="object-cover transition-all duration-1000 object-top"
-                                priority
-                            />
-                            {/* Bottom Fade into Background */}
-                            <div className="absolute inset-x-0 -bottom-1 h-32 bg-gradient-to-t from-background to-transparent z-10" />
+                            <div className="relative w-full aspect-[4/5] max-w-xl">
+                                <div className="relative z-10 w-full h-full">
+                                    <img 
+                                        src="/images/tm-portrait-flag.png" 
+                                        alt="Ambassador Togolani Mavura" 
+                                        className="w-full h-full object-cover object-top"
+                                    />
+                                    {/* Bottom Fade into Background */}
+                                    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent z-20" />
+                                </div>
+                            </div>
                         </motion.div>
                     </div>
                 </div>

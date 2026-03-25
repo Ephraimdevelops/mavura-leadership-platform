@@ -35,8 +35,8 @@ export function FeaturedIdeas({ data }: { data: any[] }) {
                 transition={{ delay: i * 0.1 }}
                 className="group"
               >
-                <Link href={`/ideas/${essay.slug}`} className="block space-y-5">
-                  <div className="aspect-[4/3] bg-secondary/5 border border-border/50 overflow-hidden relative">
+                <Link href={`/ideas/${essay.slug}`} className="block group bg-white border border-border/10 hover:border-accent/30 transition-all duration-500 shadow-sm hover:shadow-xl">
+                  <div className="aspect-[16/10] bg-secondary/5 overflow-hidden relative border-b border-border/10">
                     {(essay.coverImageUrl || essay.thumbnailUrl || essay.mainImage) ? (
                       <img 
                         src={essay.coverImageUrl || essay.thumbnailUrl || essay.mainImage} 
@@ -48,21 +48,23 @@ export function FeaturedIdeas({ data }: { data: any[] }) {
                         <BookOpen className="w-12 h-12 text-accent" />
                       </div>
                     )}
-                    <div className="absolute top-3 left-3 bg-accent/10 backdrop-blur-sm px-3 py-1.5 border border-accent/20">
-                      <span className="text-[10px] font-bold text-accent">{essay.category || "Intellectual"}</span>
+                    <div className="absolute top-4 left-4 bg-accent/90 backdrop-blur-sm px-3 py-1 text-white shadow-lg z-10">
+                      <span className="text-[9px] font-bold uppercase tracking-widest">{essay.category || "Intellectual"}</span>
                     </div>
                   </div>
                   
-                  <div className="space-y-3">
-                    <h3 className="text-xl md:text-2xl font-medium font-cormorant leading-tight group-hover:text-accent transition-colors">
+                  <div className="p-8 space-y-4">
+                    <h3 className="text-xl md:text-2xl font-medium font-cormorant leading-tight group-hover:text-accent transition-colors min-h-[3.5rem] line-clamp-2">
                       {essay.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground font-sans line-clamp-2 leading-relaxed">
+                    <p className="text-sm text-muted-foreground font-sans line-clamp-2 leading-relaxed h-[2.5rem]">
                       {essay.excerpt}
                     </p>
-                    <span className="inline-flex items-center gap-2 text-sm font-bold text-accent group-hover:text-primary transition-colors">
-                      Read Full Reflection <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                    </span>
+                    <div className="pt-2 flex items-center justify-between">
+                        <span className="inline-flex items-center gap-2 text-[10px] font-bold text-accent uppercase tracking-widest group-hover:text-primary transition-colors">
+                        Read Reflection <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                        </span>
+                    </div>
                   </div>
                 </Link>
               </motion.div>
