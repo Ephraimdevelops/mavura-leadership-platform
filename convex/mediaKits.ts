@@ -1,6 +1,14 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
 
+export const generateUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.storage.generateUploadUrl();
+  },
+});
+
+
 export const getAll = query({
   handler: async (ctx) => {
     const kits = await ctx.db.query("mediaKits").order("desc").collect();

@@ -8,7 +8,6 @@ import { Facebook, Twitter, Linkedin, Mail, ArrowRight, Share2 } from "lucide-re
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import Head from "next/head";
 
 export default function IdeaDetailPage() {
     const params = useParams();
@@ -52,7 +51,7 @@ export default function IdeaDetailPage() {
 
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white font-sans">
-            <Head>
+            <>
                 <title>{displayIdea.title} | Togolani Mavura</title>
                 <meta name="description" content={(displayIdea as any).seoDescription || (displayIdea as any).excerpt || `Read this essay by Ambassador Togolani Mavura on ${displayIdea.category || 'Leadership'}.`} />
                 <meta name="author" content="Togolani Mavura" />
@@ -61,7 +60,37 @@ export default function IdeaDetailPage() {
                 <meta property="og:image" content={displayIdea.coverImage || "/images/thought-thumb.png"} />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
-            </Head>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Article",
+                            "headline": displayIdea.title,
+                            "description": (displayIdea as any).seoDescription || (displayIdea as any).excerpt,
+                            "image": displayIdea.coverImage || "/images/thought-thumb.png",
+                            "author": {
+                                "@type": "Person",
+                                "name": "Togolani Mavura",
+                                "url": "https://togolanimavura.com"
+                            },
+                            "publisher": {
+                                "@type": "Organization",
+                                "name": "Togolani Mavura Platform",
+                                "logo": {
+                                    "@type": "ImageObject",
+                                    "url": "https://togolanimavura.com/favicon.ico"
+                                }
+                            },
+                            "datePublished": new Date(displayIdea.publishedAt || Date.now()).toISOString(),
+                            "mainEntityOfPage": {
+                                "@type": "WebPage",
+                                "@id": `https://togolanimavura.com/ideas/${slug}`
+                            }
+                        })
+                    }}
+                />
+            </>
             <Header />
 
             <article className="pt-32 pb-20">
